@@ -18,7 +18,16 @@ const div = document.createElement("div");
 div.innerHTML = `${counter} crocodiles`;
 app.append(div);
 
+//you can still change HTML elements after appended
 button.addEventListener("click", function () {
   counter++;
   div.innerHTML = `${counter} crocodiles`;
 });
+
+//auto clicking
+autoClick = setInterval(addCounter, 1000);
+
+function addCounter(){
+  counter++;
+  div.innerHTML = `${counter} crocodiles`;
+}
