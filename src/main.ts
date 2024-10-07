@@ -1,4 +1,5 @@
 import "./style.css";
+let counter : number = 0;
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
@@ -12,3 +13,12 @@ app.append(header);
 const button = document.createElement("button"); // createElement(the HTML name of element)
 button.innerHTML = "🐊";
 app.append(button);
+
+const div = document.createElement("div");
+div.innerHTML = `${counter} crocodiles`;
+app.append(div)
+
+button.addEventListener("click", function (){
+    counter++;
+    div.innerHTML = `${counter} crocodiles`;
+})
