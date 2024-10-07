@@ -1,5 +1,5 @@
 import "./style.css";
-let counter : number = 0;
+let counter: number = 0;
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
@@ -16,9 +16,9 @@ app.append(button);
 
 const div = document.createElement("div");
 div.innerHTML = `${counter} crocodiles`;
-app.append(div)
+app.append(div);
 
-button.addEventListener("click", function (){
-    counter++;
-    div.innerHTML = `${counter} crocodiles`;
-})
+button.addEventListener("click", function () {
+  counter++;
+  div.innerHTML = `${counter} crocodiles`;
+});
