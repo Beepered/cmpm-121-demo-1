@@ -25,9 +25,9 @@ button.addEventListener("click", function () {
 });
 
 //auto clicking
-autoClick = setInterval(addCounter, 1000);
+setInterval(addCounter, 1000);
 
-function addCounter(){
+function addCounter() {
   counter++;
   div.innerHTML = `${counter} crocodiles`;
 }
