@@ -1,5 +1,6 @@
 import "./style.css";
 let counter: number = 0;
+let growthRate: number = 0;
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
@@ -24,20 +25,37 @@ button.addEventListener("click", function () {
   div.innerHTML = `${counter} crocodiles`;
 });
 
+const upgradeButton = document.createElement("button");
+upgradeButton.innerHTML = "buy 1 autoclicker";
+upgradeButton.disabled = true;
+app.append(upgradeButton)
+upgradeButton.addEventListener("click", function(){
+  if(counter >= 10){
+    growthRate++;
+    counter -= 10;
+  }
+})
+
 //auto clicking
 let start = 0,
   prevTime = 0;
-function addCounter(timestamp: number) {
+function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-
+  if(counter >= 10){
+    upgradeButton.disabled = false;
+  }
+  else{
+    upgradeButton.disabled = true;
+  }
   const elapsed = timestamp - start;
   const timePassed = elapsed - prevTime;
   prevTime = elapsed;
-  counter += timePassed / 1000;
+  counter += (timePassed / 1000) * growthRate;
   div.innerHTML = `${Math.trunc(counter)} crocodiles`;
-  requestAnimationFrame(addCounter);
+
+  requestAnimationFrame(update);
 }
 
-requestAnimationFrame(addCounter);
+requestAnimationFrame(update);
