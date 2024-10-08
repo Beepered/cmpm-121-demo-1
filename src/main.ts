@@ -25,16 +25,17 @@ button.addEventListener("click", function () {
 });
 
 //auto clicking
-let start = 0, prevTime = 0;
-function addCounter(timestamp : number) {
+let start = 0,
+  prevTime = 0;
+function addCounter(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-  
+
   const elapsed = timestamp - start;
-  let timePassed = elapsed - prevTime;
+  const timePassed = elapsed - prevTime;
   prevTime = elapsed;
-  counter += timePassed / 1000
+  counter += timePassed / 1000;
   div.innerHTML = `${Math.trunc(counter)} crocodiles`;
   requestAnimationFrame(addCounter);
 }
