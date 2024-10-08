@@ -28,13 +28,13 @@ button.addEventListener("click", function () {
 const upgradeButton = document.createElement("button");
 upgradeButton.innerHTML = "buy 1 autoclicker";
 upgradeButton.disabled = true;
-app.append(upgradeButton)
-upgradeButton.addEventListener("click", function(){
-  if(counter >= 10){
+app.append(upgradeButton);
+upgradeButton.addEventListener("click", function () {
+  if (counter >= 10) {
     growthRate++;
     counter -= 10;
   }
-})
+});
 
 //auto clicking
 let start = 0,
@@ -43,10 +43,9 @@ function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-  if(counter >= 10){
+  if (counter >= 10) {
     upgradeButton.disabled = false;
-  }
-  else{
+  } else {
     upgradeButton.disabled = true;
   }
   const elapsed = timestamp - start;
