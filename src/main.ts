@@ -4,7 +4,7 @@ let growthRate: number = 0;
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "My game 2 again (2)";
+const gameName = "Crocodile Hunting";
 document.title = gameName;
 
 const header = document.createElement("h1");
@@ -19,28 +19,22 @@ const div = document.createElement("div");
 div.innerHTML = `${counter} crocodiles`;
 app.append(div);
 
+const growthRateText = document.createElement("div");
+growthRateText.innerHTML = `${growthRate} auto clicks`;
+app.append(growthRateText)
+
 //you can still change HTML elements after appended
 button.addEventListener("click", function () {
   counter++;
-  div.innerHTML = `${counter} crocodiles`;
 });
 /*
-const upgradeButton = document.createElement("button");
-upgradeButton.innerHTML = "buy 1 autoclicker";
-upgradeButton.disabled = true;
-app.append(upgradeButton);
-upgradeButton.addEventListener("click", function () {
-  if (counter >= 10) {
-    growthRate++;
-    counter -= 10;
-  }
-});
-*/
 class Upgrade {
   name: string;
   cost: number;
   clickStrength: number;
+  amtBought: number = 0;
   element: HTMLButtonElement;
+  text: HTMLParagraphElement
   constructor(name: string, cost: number, clickStrength: number) {
     this.name = name;
     this.cost = cost;
@@ -49,6 +43,9 @@ class Upgrade {
     this.element = document.createElement("button");
     this.element.innerHTML = `buy 1 ${name}`;
     this.element.disabled = true;
+
+    this.text = document.createElement("div"); //description text
+    this.text.innerHTML = this.cost.toString() + ` (${this.amtBought})`;
     this.element.addEventListener("click", function () {
       if (counter >= cost) {
         growthRate += clickStrength;
@@ -57,25 +54,82 @@ class Upgrade {
     });
   }
   update() {
-    if (counter >= this.cost) {
-      //enable
+    this.text.innerHTML = this.cost.toString() + ` (${this.amtBought})`;
+    if (counter >= this.cost) { //enable
       this.element.disabled = false;
-    } else {
-      //disable
+    } else { //disable
       this.element.disabled = true;
     }
   }
 }
-const button1 = new Upgrade("baby croc hunter", 10, 0.1);
-const button2 = new Upgrade("adult hunter", 100, 2);
-const button3 = new Upgrade("professional hunter", 1000, 5);
-app.append(button1.element);
-app.append(button2.element);
-app.append(button3.element);
+*/
+class TestUpgrade{
+  name: string;
+  cost: number;
+  clickStrength: number;
+  amtBought: number = 0;
+  element: HTMLButtonElement;
+  text: HTMLParagraphElement;
+  constructor(name: string, cost: number, clickStrength: number) {
+    this.name = name;
+    this.cost = cost;
+    this.clickStrength = clickStrength;
+
+    this.element = document.createElement("button");
+    this.element.innerHTML = `buy 1 ${name}`;
+
+    this.text = document.createElement("div"); //description text
+    this.text.innerHTML = this.cost.toString() + ` (${this.amtBought})`;
+  }
+  update() {
+    if (counter >= this.cost) { //enable
+      this.element.disabled = false;
+    } else { //disable
+      this.element.disabled = true;
+    }
+  }
+}
+const button1 = new TestUpgrade("baby croc hunter", 10, 0.1);
+const button2 = new TestUpgrade("adult hunter", 100, 2);
+const button3 = new TestUpgrade("professional hunter", 1000, 5);
+button1.element.addEventListener("click", function () {
+  if (counter >= button1.cost) {
+    growthRate += button1.clickStrength;
+    counter -= button1.cost;
+    button1.amtBought++;
+    button1.text.innerHTML = button1.cost.toString() + ` (${button1.amtBought})`;
+  }
+});
+button2.element.addEventListener("click", function () {
+  if (counter >= button2.cost) {
+    growthRate += button2.clickStrength;
+    counter -= button2.cost;
+    button2.amtBought++;
+    button2.text.innerHTML = button2.cost.toString() + ` (${button2.amtBought})`;
+  }
+});
+button3.element.addEventListener("click", function () {
+  if (counter >= button3.cost) {
+    growthRate += button3.clickStrength;
+    counter -= button3.cost;
+    button3.amtBought++;
+    button3.text.innerHTML = button3.cost.toString() + ` (${button3.amtBought})`;
+  }
+});
 const buttonList = [button1, button2, button3];
 for (const item of buttonList) {
   app.append(item.element);
+  app.append(item.text)
 }
+/*
+const button1 = new Upgrade("baby croc hunter", 10, 0.1);
+const button2 = new Upgrade("adult hunter", 100, 2);
+const button3 = new Upgrade("professional hunter", 1000, 5);
+const buttonList = [button1, button2, button3];
+for (const item of buttonList) {
+  app.append(item.element);
+  app.append(item.text)
+}*/
 
 //auto clicking
 let start = 0,
@@ -84,6 +138,7 @@ function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
+  
   for (const item of buttonList) {
     item.update();
   }
@@ -91,7 +146,9 @@ function update(timestamp: number) {
   const timePassed = elapsed - prevTime;
   prevTime = elapsed;
   counter += (timePassed / 1000) * growthRate;
+
   div.innerHTML = `${Math.trunc(counter)} crocodiles`;
+  growthRateText.innerHTML = `${growthRate} auto clicks`;
 
   requestAnimationFrame(update);
 }
