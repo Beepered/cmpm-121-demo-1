@@ -36,15 +36,15 @@ button.addEventListener("click", function () {
 });
 
 interface Item {
-  name: string,
-  cost: number,
-  rate: number,
-};
+  name: string;
+  cost: number;
+  rate: number;
+}
 
-const availableItems : Item[] = [
-  {name: "baby croc hunter", cost: 10, rate: 0.1},
-  {name: "adult hunter", cost: 100, rate: 2},
-  {name: "professional hunter", cost: 1000, rate: 50},
+const availableItems: Item[] = [
+  { name: "baby croc hunter", cost: 10, rate: 0.1 },
+  { name: "adult hunter", cost: 100, rate: 2 },
+  { name: "professional hunter", cost: 1000, rate: 50 },
 ];
 
 class Upgrade {
@@ -76,8 +76,8 @@ class Upgrade {
   }
 }
 
-const upgList : Upgrade[] = [];
-for(const item of availableItems){
+const upgList: Upgrade[] = [];
+for (const item of availableItems) {
   const upgrade = new Upgrade(item.name, item.cost, item.rate);
   upgrade.element.addEventListener("click", function () {
     if (counter >= upgrade.cost) {
@@ -85,14 +85,14 @@ for(const item of availableItems){
       counter -= upgrade.cost;
       upgrade.amtBought++;
       upgrade.cost *= 1.15;
-      upgrade.text.innerHTML = upgrade.cost.toString() + ` (${upgrade.amtBought})`;
+      upgrade.text.innerHTML =
+        upgrade.cost.toString() + ` (${upgrade.amtBought})`;
     }
-  })
-  app.append(upgrade.element)
-  app.append(upgrade.text)
+  });
+  app.append(upgrade.element);
+  app.append(upgrade.text);
   upgList.push(upgrade);
 }
-
 
 //update function
 let start = 0,
@@ -101,11 +101,11 @@ function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-  
+
   for (const item of upgList) {
     item.update();
   }
-  
+
   const elapsed = timestamp - start; // seconds since program ran
   const timePassed = elapsed - prevTime; // milliseconds between update rerun
   prevTime = elapsed;
