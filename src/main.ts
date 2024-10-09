@@ -99,6 +99,7 @@ button1.element.addEventListener("click", function () {
     growthRate += button1.clickStrength;
     counter -= button1.cost;
     button1.amtBought++;
+    button1.cost *= 1.15;
     button1.text.innerHTML =
       button1.cost.toString() + ` (${button1.amtBought})`;
   }
@@ -108,6 +109,7 @@ button2.element.addEventListener("click", function () {
     growthRate += button2.clickStrength;
     counter -= button2.cost;
     button2.amtBought++;
+    button2.cost *= 1.15;
     button2.text.innerHTML =
       button2.cost.toString() + ` (${button2.amtBought})`;
   }
@@ -117,6 +119,7 @@ button3.element.addEventListener("click", function () {
     growthRate += button3.clickStrength;
     counter -= button3.cost;
     button3.amtBought++;
+    button3.cost *= 1.15;
     button3.text.innerHTML =
       button3.cost.toString() + ` (${button3.amtBought})`;
   }
