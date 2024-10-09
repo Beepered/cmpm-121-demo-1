@@ -22,47 +22,19 @@ app.append(div);
 const growthRateText = document.createElement("div");
 growthRateText.innerHTML = `${growthRate} auto clicks`;
 app.append(growthRateText);
+growthRateText.style.position = "fixed";
+growthRateText.style.top = "0";
+growthRateText.style.right = "0";
+growthRateText.style.padding = "10px";
+growthRateText.style.backgroundColor = "#333";
+growthRateText.style.color = "white";
+growthRateText.style.fontSize = "2em";
 
 //you can still change HTML elements after appended
 button.addEventListener("click", function () {
   counter++;
 });
-/*
-class Upgrade {
-  name: string;
-  cost: number;
-  clickStrength: number;
-  amtBought: number = 0;
-  element: HTMLButtonElement;
-  text: HTMLParagraphElement
-  constructor(name: string, cost: number, clickStrength: number) {
-    this.name = name;
-    this.cost = cost;
-    this.clickStrength = clickStrength;
 
-    this.element = document.createElement("button");
-    this.element.innerHTML = `buy 1 ${name}`;
-    this.element.disabled = true;
-
-    this.text = document.createElement("div"); //description text
-    this.text.innerHTML = this.cost.toString() + ` (${this.amtBought})`;
-    this.element.addEventListener("click", function () {
-      if (counter >= cost) {
-        growthRate += clickStrength;
-        counter -= cost;
-      }
-    });
-  }
-  update() {
-    this.text.innerHTML = this.cost.toString() + ` (${this.amtBought})`;
-    if (counter >= this.cost) { //enable
-      this.element.disabled = false;
-    } else { //disable
-      this.element.disabled = true;
-    }
-  }
-}
-*/
 class TestUpgrade {
   name: string;
   cost: number;
@@ -129,15 +101,6 @@ for (const item of buttonList) {
   app.append(item.element);
   app.append(item.text);
 }
-/*
-const button1 = new Upgrade("baby croc hunter", 10, 0.1);
-const button2 = new Upgrade("adult hunter", 100, 2);
-const button3 = new Upgrade("professional hunter", 1000, 5);
-const buttonList = [button1, button2, button3];
-for (const item of buttonList) {
-  app.append(item.element);
-  app.append(item.text)
-}*/
 
 //auto clicking
 let start = 0,
@@ -146,7 +109,7 @@ function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-
+  
   for (const item of buttonList) {
     item.update();
   }
