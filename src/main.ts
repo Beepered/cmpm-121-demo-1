@@ -21,7 +21,7 @@ app.append(div);
 
 const growthRateText = document.createElement("div");
 growthRateText.innerHTML = `${growthRate} auto clicks`;
-app.append(growthRateText)
+app.append(growthRateText);
 
 //you can still change HTML elements after appended
 button.addEventListener("click", function () {
@@ -63,7 +63,7 @@ class Upgrade {
   }
 }
 */
-class TestUpgrade{
+class TestUpgrade {
   name: string;
   cost: number;
   clickStrength: number;
@@ -82,9 +82,11 @@ class TestUpgrade{
     this.text.innerHTML = this.cost.toString() + ` (${this.amtBought})`;
   }
   update() {
-    if (counter >= this.cost) { //enable
+    if (counter >= this.cost) {
+      //enable
       this.element.disabled = false;
-    } else { //disable
+    } else {
+      //disable
       this.element.disabled = true;
     }
   }
@@ -97,7 +99,8 @@ button1.element.addEventListener("click", function () {
     growthRate += button1.clickStrength;
     counter -= button1.cost;
     button1.amtBought++;
-    button1.text.innerHTML = button1.cost.toString() + ` (${button1.amtBought})`;
+    button1.text.innerHTML =
+      button1.cost.toString() + ` (${button1.amtBought})`;
   }
 });
 button2.element.addEventListener("click", function () {
@@ -105,7 +108,8 @@ button2.element.addEventListener("click", function () {
     growthRate += button2.clickStrength;
     counter -= button2.cost;
     button2.amtBought++;
-    button2.text.innerHTML = button2.cost.toString() + ` (${button2.amtBought})`;
+    button2.text.innerHTML =
+      button2.cost.toString() + ` (${button2.amtBought})`;
   }
 });
 button3.element.addEventListener("click", function () {
@@ -113,13 +117,14 @@ button3.element.addEventListener("click", function () {
     growthRate += button3.clickStrength;
     counter -= button3.cost;
     button3.amtBought++;
-    button3.text.innerHTML = button3.cost.toString() + ` (${button3.amtBought})`;
+    button3.text.innerHTML =
+      button3.cost.toString() + ` (${button3.amtBought})`;
   }
 });
 const buttonList = [button1, button2, button3];
 for (const item of buttonList) {
   app.append(item.element);
-  app.append(item.text)
+  app.append(item.text);
 }
 /*
 const button1 = new Upgrade("baby croc hunter", 10, 0.1);
@@ -138,7 +143,7 @@ function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-  
+
   for (const item of buttonList) {
     item.update();
   }
