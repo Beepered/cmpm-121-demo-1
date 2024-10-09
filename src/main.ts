@@ -36,10 +36,12 @@ upgradeButton.addEventListener("click", function () {
   }
 });
 */
-class Upgrade{
-  name : string; cost : number; clickStrength : number;
-  element: HTMLButtonElement
-  constructor(name : string, cost : number, clickStrength : number){
+class Upgrade {
+  name: string;
+  cost: number;
+  clickStrength: number;
+  element: HTMLButtonElement;
+  constructor(name: string, cost: number, clickStrength: number) {
     this.name = name;
     this.cost = cost;
     this.clickStrength = clickStrength;
@@ -54,12 +56,11 @@ class Upgrade{
       }
     });
   }
-  update(){
-    if(counter >= this.cost){
+  update() {
+    if (counter >= this.cost) {
       //enable
       this.element.disabled = false;
-    }
-    else{
+    } else {
       //disable
       this.element.disabled = true;
     }
@@ -68,12 +69,12 @@ class Upgrade{
 const button1 = new Upgrade("baby croc hunter", 10, 0.1);
 const button2 = new Upgrade("adult hunter", 100, 2);
 const button3 = new Upgrade("professional hunter", 1000, 5);
-app.append(button1.element)
-app.append(button2.element)
-app.append(button3.element)
-const buttonList = [button1, button2, button3]
+app.append(button1.element);
+app.append(button2.element);
+app.append(button3.element);
+const buttonList = [button1, button2, button3];
 for (const item of buttonList) {
-  app.append(item.element)
+  app.append(item.element);
 }
 
 //auto clicking
@@ -84,7 +85,7 @@ function update(timestamp: number) {
     start = timestamp;
   }
   for (const item of buttonList) {
-    item.update()
+    item.update();
   }
   const elapsed = timestamp - start;
   const timePassed = elapsed - prevTime;
