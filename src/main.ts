@@ -24,7 +24,7 @@ button.addEventListener("click", function () {
   counter++;
   div.innerHTML = `${counter} crocodiles`;
 });
-
+/*
 const upgradeButton = document.createElement("button");
 upgradeButton.innerHTML = "buy 1 autoclicker";
 upgradeButton.disabled = true;
@@ -35,6 +35,46 @@ upgradeButton.addEventListener("click", function () {
     counter -= 10;
   }
 });
+*/
+class Upgrade{
+  name : string; cost : number; clickStrength : number;
+  element: HTMLButtonElement
+  constructor(name : string, cost : number, clickStrength : number){
+    this.name = name;
+    this.cost = cost;
+    this.clickStrength = clickStrength;
+
+    this.element = document.createElement("button");
+    this.element.innerHTML = `buy 1 ${name}`;
+    this.element.disabled = true;
+    this.element.addEventListener("click", function () {
+      if (counter >= cost) {
+        growthRate += clickStrength;
+        counter -= cost;
+      }
+    });
+  }
+  update(){
+    if(counter >= this.cost){
+      //enable
+      this.element.disabled = false;
+    }
+    else{
+      //disable
+      this.element.disabled = true;
+    }
+  }
+}
+const button1 = new Upgrade("baby croc hunter", 10, 0.1);
+const button2 = new Upgrade("adult hunter", 100, 2);
+const button3 = new Upgrade("professional hunter", 1000, 5);
+app.append(button1.element)
+app.append(button2.element)
+app.append(button3.element)
+const buttonList = [button1, button2, button3]
+for (const item of buttonList) {
+  app.append(item.element)
+}
 
 //auto clicking
 let start = 0,
@@ -43,10 +83,8 @@ function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-  if (counter >= 10) {
-    upgradeButton.disabled = false;
-  } else {
-    upgradeButton.disabled = true;
+  for (const item of buttonList) {
+    item.update()
   }
   const elapsed = timestamp - start;
   const timePassed = elapsed - prevTime;
