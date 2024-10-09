@@ -37,14 +37,17 @@ button.addEventListener("click", function () {
 
 interface Item {
   name: string;
+  description: string;
   cost: number;
   rate: number;
 }
 
 const availableItems: Item[] = [
-  { name: "baby croc hunter", cost: 10, rate: 0.1 },
-  { name: "adult hunter", cost: 100, rate: 2 },
-  { name: "professional hunter", cost: 1000, rate: 50 },
+  { name: "baby croc hunter", description: "Give a baby a gun and hope for the best", cost: 10, rate: 0.1 },
+  { name: "homeless rifleman", description: "Steal a gun and give a homeless person some money", cost: 100, rate: 2 },
+  { name: "fisherman", description: "Beg a fisherman to help you kill crocodiles", cost: 1000, rate: 50 },
+  { name: "marine biologist", description: "Give a marine biologist a living wage", cost: 6000, rate: 100 },
+  { name: "crocodile spawner", description: "Build a generator to make more crocodiles to kill", cost: 100000, rate: 500 },
 ];
 
 class Upgrade {
@@ -62,7 +65,7 @@ class Upgrade {
     this.element = document.createElement("button");
     this.element.innerHTML = `buy 1 ${name}`;
 
-    this.text = document.createElement("div"); //description text
+    this.text = document.createElement("div");
     this.text.innerHTML = this.cost.toString() + ` (${this.amtBought})`;
   }
   update() {
@@ -91,6 +94,9 @@ for (const item of availableItems) {
   });
   app.append(upgrade.element);
   app.append(upgrade.text);
+  const descText = document.createElement("div");
+  descText.innerHTML = item.description;
+  app.append(descText)
   upgList.push(upgrade);
 }
 
