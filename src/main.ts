@@ -114,7 +114,7 @@ for (const item of availableItems) {
       upgrade.amtBought++;
       upgrade.cost *= 1.15;
       upgrade.text.innerHTML =
-        upgrade.cost.toString() + ` (${upgrade.amtBought})`;
+        upgrade.cost.toFixed(1).toString() + ` (${upgrade.amtBought})`;
     }
   });
   app.append(upgrade.element);
@@ -142,8 +142,8 @@ function update(timestamp: number) {
   prevTime = elapsed;
   counter += (timePassed / 1000) * growthRate;
 
-  div.innerHTML = `${Math.trunc(counter)} crocodiles`;
-  growthRateText.innerHTML = `${growthRate} auto clicks`;
+  div.innerHTML = `${counter.toFixed(1)} crocodiles`;
+  growthRateText.innerHTML = `${growthRate.toFixed(1)} auto clicks`;
 
   requestAnimationFrame(update);
 }
