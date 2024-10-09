@@ -35,7 +35,19 @@ button.addEventListener("click", function () {
   counter++;
 });
 
-class TestUpgrade {
+interface Item {
+  name: string,
+  cost: number,
+  rate: number,
+};
+
+const availableItems : Item[] = [
+  {name: "baby croc hunter", cost: 10, rate: 0.1},
+  {name: "adult hunter", cost: 100, rate: 2},
+  {name: "professional hunter", cost: 1000, rate: 50},
+];
+
+class Upgrade {
   name: string;
   cost: number;
   clickStrength: number;
@@ -63,58 +75,39 @@ class TestUpgrade {
     }
   }
 }
-const button1 = new TestUpgrade("baby croc hunter", 10, 0.1);
-const button2 = new TestUpgrade("adult hunter", 100, 2);
-const button3 = new TestUpgrade("professional hunter", 1000, 5);
-button1.element.addEventListener("click", function () {
-  if (counter >= button1.cost) {
-    growthRate += button1.clickStrength;
-    counter -= button1.cost;
-    button1.amtBought++;
-    button1.cost *= 1.15;
-    button1.text.innerHTML =
-      button1.cost.toString() + ` (${button1.amtBought})`;
-  }
-});
-button2.element.addEventListener("click", function () {
-  if (counter >= button2.cost) {
-    growthRate += button2.clickStrength;
-    counter -= button2.cost;
-    button2.amtBought++;
-    button2.cost *= 1.15;
-    button2.text.innerHTML =
-      button2.cost.toString() + ` (${button2.amtBought})`;
-  }
-});
-button3.element.addEventListener("click", function () {
-  if (counter >= button3.cost) {
-    growthRate += button3.clickStrength;
-    counter -= button3.cost;
-    button3.amtBought++;
-    button3.cost *= 1.15;
-    button3.text.innerHTML =
-      button3.cost.toString() + ` (${button3.amtBought})`;
-  }
-});
-const buttonList = [button1, button2, button3];
-for (const item of buttonList) {
-  app.append(item.element);
-  app.append(item.text);
+
+const upgList : Upgrade[] = [];
+for(const item of availableItems){
+  const upgrade = new Upgrade(item.name, item.cost, item.rate);
+  upgrade.element.addEventListener("click", function () {
+    if (counter >= upgrade.cost) {
+      growthRate += upgrade.clickStrength;
+      counter -= upgrade.cost;
+      upgrade.amtBought++;
+      upgrade.cost *= 1.15;
+      upgrade.text.innerHTML = upgrade.cost.toString() + ` (${upgrade.amtBought})`;
+    }
+  })
+  app.append(upgrade.element)
+  app.append(upgrade.text)
+  upgList.push(upgrade);
 }
 
-//auto clicking
+
+//update function
 let start = 0,
   prevTime = 0;
 function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-
-  for (const item of buttonList) {
+  
+  for (const item of upgList) {
     item.update();
   }
-  const elapsed = timestamp - start;
-  const timePassed = elapsed - prevTime;
+  
+  const elapsed = timestamp - start; // seconds since program ran
+  const timePassed = elapsed - prevTime; // milliseconds between update rerun
   prevTime = elapsed;
   counter += (timePassed / 1000) * growthRate;
 
