@@ -109,7 +109,7 @@ function update(timestamp: number) {
   if (start === undefined) {
     start = timestamp;
   }
-  
+
   for (const item of buttonList) {
     item.update();
   }
